@@ -29,9 +29,12 @@ TEST(test2, prefix_suffix_1) {
 }
 
 TEST(test3, one_suffix) {
-    TextGenerator tg = TextGenerator("test3.txt");
-    tg.read_from_file();
-    tg.get_words();
+    TextGenerator tg = TextGenerator("test1_2.txt");
+    std::string text = "I'm a student of university in Niznhy Novgorod";
+    tg.slova.push_back(tg.get_list_of_strings(text));
+    for (int i = 0; i < tg.slova.size(); i++) {
+        tg.prefixes.push_back(tg.slova[i]);
+    }
     typedef std::deque<std::string> prefix;
     prefix values;
     tg.find_suffix();
@@ -43,21 +46,21 @@ TEST(test3, one_suffix) {
 }
 
 TEST(test4, some_suffixes) {
-    TextGenerator tg = TextGenerator("test4.txt");
-    tg.read_from_file();
-    tg.get_words();
+    TextGenerator tg = TextGenerator("test1_2.txt");
     typedef std::deque<std::string> prefix;
     prefix values;
+    std::string text = "Hello, my dear Nastya! Hello, my dear Irisha! Hello, \
+    my dear Dasha! Hello, my dear Alisa! Hello, my dear Nelly!";
+    tg.slova.push_back(tg.get_list_of_strings(text));
+    for (int i = 0; i < tg.slova.size(); i++) {
+        tg.prefixes.push_back(tg.slova[i]);
+    }
     tg.find_suffix();
     tg.get_connected();
     tg.get_result(1000);
     values.push_back(tg.prefixes[1]);
     values.push_back(tg.prefixes[2]);
-    ASSERT_TRUE((tg.statetab.at(values)[0] == tg.suffix[1][0])
-    || (tg.statetab.at(values)[0] == tg.suffix[1][1])
-    || (tg.statetab.at(values)[0] == tg.suffix[1][2])
-    || (tg.statetab.at(values)[0] == tg.suffix[1][3])
-    || (tg.statetab.at(values)[0] == tg.suffix[1][4]));
+    ASSERT_EQ(tg.statetab.at(values), tg.suffix[1]);
 }
 
 TEST(test5, generate_from_table) {
