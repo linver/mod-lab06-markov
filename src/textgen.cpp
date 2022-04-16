@@ -41,19 +41,19 @@ std::string TextGenerator::get_result(int size) {
     two_elem.push_back(text[1]);
 
     output = text[0] + " " + text[1] + " ";
-    std::random_device rd;
 
     for (int i = 2; i < size; i++) {
         suf = statetab.at(two_elem);
-        two_elem.erase(two_elem.begin());
         if (suf.size() == 0) {
             break;
         }
+        std::random_device rd;
         std::default_random_engine e1(rd());
         std::uniform_int_distribution<int> uniform_dist(0, suf.size()-1);
         int randint = uniform_dist(e1);
         text[i] = suf[randint];
         output += text[i] + " ";
+        two_elem.erase(two_elem.begin());
         two_elem.push_back(text[i]);
     }
     return output;
