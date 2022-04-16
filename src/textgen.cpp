@@ -42,7 +42,7 @@ std::string TextGenerator::get_result(int size) {
 
     output = text[0] + " " + text[1] + " ";
 
-    for (int i = 2; i < size-1; i++) {
+    for (int i = 2; i < size-2; i++) {
         suf = statetab.at(two_elem);
         if (suf.size() == 0) {
             break;
