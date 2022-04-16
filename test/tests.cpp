@@ -5,19 +5,12 @@
 #include <string>
 #include "textgen.h"
 
-// В данном проекте необходимо реализовать следующие тесты:
-
-// - формирование префикса из заданного числа слов
-// - формирование записи "префикс-суффикс"
-// - выбор единственного суффикса из вектора суффиксом (использование ПСЧ)
-// - выбор суффикса из вектора, содержащего несколько вариантом (ПСЧ)
-// - формирование текста заданной длины (на основе таблицы, заполненной вручную)
 
 TEST(test1, prefix_check_1) {
     TextGenerator tg = TextGenerator("test1_2.txt");
     tg.read_from_file();
     tg.get_words();
-    ASSERT_EQ(tg.prefixes.size(), tg.slova.size());
+    EXPECT_EQ(tg.prefixes.size(), tg.slova.size());
 }
 
 TEST(test2, prefix_suffix_1) {
@@ -31,7 +24,7 @@ TEST(test2, prefix_suffix_1) {
     prefix values;
     values.push_back(tg.prefixes[0]);
     values.push_back(tg.prefixes[1]);
-    ASSERT_EQ(tg.statetab.at(values), tg.suffix[0]);
+    EXPECT_EQ(tg.statetab.at(values), tg.suffix[0]);
 }
 
 TEST(test3, one_suffix) {
@@ -44,7 +37,7 @@ TEST(test3, one_suffix) {
     tg.get_connected();
     values.push_back(tg.prefixes[0]);
     values.push_back(tg.prefixes[1]);
-    ASSERT_EQ(tg.statetab.at(values)[0], tg.suffix[0][0]);
+    EXPECT_EQ(tg.statetab.at(values)[0], tg.suffix[0][0]);
 }
 
 TEST(test4, some_suffixes) {
@@ -57,7 +50,7 @@ TEST(test4, some_suffixes) {
     tg.get_connected();
     values.push_back(tg.prefixes[1]);
     values.push_back(tg.prefixes[2]);
-    ASSERT_TRUE((tg.statetab.at(values)[0] == tg.suffix[1][0])
+    EXPECT_TRUE((tg.statetab.at(values)[0] == tg.suffix[1][0])
     || (tg.statetab.at(values)[0] == tg.suffix[1][1])
     || (tg.statetab.at(values)[0] == tg.suffix[1][2])
     || (tg.statetab.at(values)[0] == tg.suffix[1][3])
@@ -65,7 +58,7 @@ TEST(test4, some_suffixes) {
 }
 
 TEST(test5, generate_from_table) {
-    TextGenerator tg = TextGenerator("test3.txt");
+    TextGenerator tg = TextGenerator("test5.txt");
     std::string text = "Раз, два, три, четыре, пять, Вышел зайчик погулять. ";
     text += "Вдруг охотник выбегает, Прямо в зайчика стреляет. ";
     text += "Но охотник не попал, Серый зайчик убежал.";
@@ -81,5 +74,5 @@ TEST(test5, generate_from_table) {
         index = result.find(' ', index + 1);
         i++;
     }
-    ASSERT_LE(i, 25);
+    EXPECT_LE(i, 25);
 }
