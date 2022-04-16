@@ -117,7 +117,7 @@ void TextGenerator::get_words() {
 void TextGenerator::find_suffix() {
     std::vector<std::string> results;
     for (int k = 1; k < slova.size()-1; k++) {
-        for (int j = 1; j < slova.size(); j++) {
+        for (int j = 1; j < slova.size()-1; j++) {
             if (prefixes[k] == slova[j]) {
                 results.push_back(slova[j+1]);
             }
