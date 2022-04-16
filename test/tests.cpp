@@ -65,7 +65,8 @@ TEST(test4, some_suffixes) {
 
 TEST(test5, generate_from_table) {
     TextGenerator tg = TextGenerator("test1_2.txt");
-    std::string text = "Раз, два, три, четыре, пять, Вышел зайчик погулять. ";
+    std::string text;
+    text = "Раз, два, три, четыре, пять, Вышел зайчик погулять. ";
     text += "Вдруг охотник выбегает, Прямо в зайчика стреляет. ";
     text += "Но охотник не попал, Серый зайчик убежал.";
     tg.slova.push_back(tg.get_list_of_strings(text));
@@ -75,10 +76,12 @@ TEST(test5, generate_from_table) {
     tg.find_suffix();
     tg.get_connected();
     std::string result = tg.get_result(25);
-    int i = -1, index = 0;
-    while (result.find(' ', index) != -1) {
-        index = result.find(' ', index + 1);
-        i++;
-    }
-    ASSERT_LE(i, 25);
+    tg.slova.clear();
+    tg.slova.push_back(tg.get_list_of_strings(result));
+    // int i = -1, index = 0;
+    // while (result.find(' ', index) != -1) {
+    //     index = result.find(' ', index + 1);
+    //     i++;
+    // }
+    ASSERT_LE(tg.slova.size(), 25);
 }
