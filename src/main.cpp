@@ -9,7 +9,5 @@
 
 
 int main() {
-    TextGenerator tg = TextGenerator("source.txt");
-    tg.generate(MAXGEN);
     return 0;
 }

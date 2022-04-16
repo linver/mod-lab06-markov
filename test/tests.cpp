@@ -1,5 +1,6 @@
 // Copyright 2021 GHA Test Team
 #include <gtest/gtest.h>
+#include <time.h>
 #include <stdexcept>
 #include <iostream>
 #include <string>
@@ -35,6 +36,7 @@ TEST(test3, one_suffix) {
     prefix values;
     tg.find_suffix();
     tg.get_connected();
+    tg.get_result(1000);
     values.push_back(tg.prefixes[0]);
     values.push_back(tg.prefixes[1]);
     ASSERT_EQ(tg.statetab.at(values), tg.suffix[0]);
@@ -48,6 +50,7 @@ TEST(test4, some_suffixes) {
     prefix values;
     tg.find_suffix();
     tg.get_connected();
+    tg.get_result(1000);
     values.push_back(tg.prefixes[1]);
     values.push_back(tg.prefixes[2]);
     ASSERT_TRUE((tg.statetab.at(values)[0] == tg.suffix[1][0])
