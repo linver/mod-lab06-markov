@@ -10,7 +10,7 @@ TEST(test1, prefix_check_1) {
     TextGenerator tg = TextGenerator("test1_2.txt");
     tg.read_from_file();
     tg.get_words();
-    EXPECT_EQ(tg.prefixes.size(), tg.slova.size());
+    ASSERT_EQ(tg.prefixes.size(), tg.slova.size());
 }
 
 TEST(test2, prefix_suffix_1) {
@@ -24,7 +24,7 @@ TEST(test2, prefix_suffix_1) {
     prefix values;
     values.push_back(tg.prefixes[0]);
     values.push_back(tg.prefixes[1]);
-    EXPECT_EQ(tg.statetab.at(values), tg.suffix[0]);
+    ASSERT_EQ(tg.statetab.at(values), tg.suffix[0]);
 }
 
 TEST(test3, one_suffix) {
@@ -37,7 +37,7 @@ TEST(test3, one_suffix) {
     tg.get_connected();
     values.push_back(tg.prefixes[0]);
     values.push_back(tg.prefixes[1]);
-    EXPECT_EQ(tg.statetab.at(values)[0], tg.suffix[0][0]);
+    ASSERT_EQ(tg.statetab.at(values), tg.suffix[0]);
 }
 
 TEST(test4, some_suffixes) {
@@ -50,7 +50,7 @@ TEST(test4, some_suffixes) {
     tg.get_connected();
     values.push_back(tg.prefixes[1]);
     values.push_back(tg.prefixes[2]);
-    EXPECT_TRUE((tg.statetab.at(values)[0] == tg.suffix[1][0])
+    ASSERT_TRUE((tg.statetab.at(values)[0] == tg.suffix[1][0])
     || (tg.statetab.at(values)[0] == tg.suffix[1][1])
     || (tg.statetab.at(values)[0] == tg.suffix[1][2])
     || (tg.statetab.at(values)[0] == tg.suffix[1][3])
@@ -74,5 +74,5 @@ TEST(test5, generate_from_table) {
         index = result.find(' ', index + 1);
         i++;
     }
-    EXPECT_LE(i, 25);
+    ASSERT_LE(i, 25);
 }
