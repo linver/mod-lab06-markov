@@ -1,2 +1,83 @@
 // Copyright 2021 GHA Test Team
 #include <gtest/gtest.h>
+#include <stdexcept>
+#include <iostream>
+#include <string>
+#include "textgen.h"
+
+// В данном проекте необходимо реализовать следующие тесты:
+
+// - формирование префикса из заданного числа слов
+// - формирование записи "префикс-суффикс"
+// - выбор единственного суффикса из вектора суффиксом (использование ПСЧ)
+// - выбор суффикса из вектора, содержащего несколько вариантом (ПСЧ)
+// - формирование текста заданной длины (на основе таблицы, заполненной вручную)
+
+TEST(test1, prefix_check_1) {
+    TextGenerator tg = TextGenerator("test1_2.txt");
+    tg.read_from_file();
+    tg.get_words();
+    ASSERT_EQ(tg.prefixes.size(), tg.slova.size());
+}
+
+TEST(test2, prefix_suffix_1) {
+    TextGenerator tg = TextGenerator("test1_2.txt");
+    tg.read_from_file();
+    tg.get_words();
+    tg.find_suffix();
+    tg.get_connected();
+    tg.get_result(1000);
+    typedef std::deque<std::string> prefix;
+    prefix values;
+    values.push_back(tg.prefixes[0]);
+    values.push_back(tg.prefixes[1]);
+    ASSERT_EQ(tg.statetab.at(values), tg.suffix[0]);
+}
+
+TEST(test3, one_suffix) {
+    TextGenerator tg = TextGenerator("test3.txt");
+    tg.read_from_file();
+    tg.get_words();
+    typedef std::deque<std::string> prefix;
+    prefix values;
+    tg.find_suffix();
+    tg.get_connected();
+    values.push_back(tg.prefixes[0]);
+    values.push_back(tg.prefixes[1]);
+    ASSERT_EQ(tg.statetab.at(values)[0], tg.suffix[0][0]);
+}
+
+TEST(test4, some_suffixes) {
+    TextGenerator tg = TextGenerator("test4.txt");
+    tg.read_from_file();
+    tg.get_words();
+    typedef std::deque<std::string> prefix;
+    prefix values;
+    tg.find_suffix();
+    tg.get_connected();
+    values.push_back(tg.prefixes[1]);
+    values.push_back(tg.prefixes[2]);
+    ASSERT_TRUE((tg.statetab.at(values)[0] == tg.suffix[1][0])
+    || (tg.statetab.at(values)[0] == tg.suffix[1][1])
+    || (tg.statetab.at(values)[0] == tg.suffix[1][2])
+    || (tg.statetab.at(values)[0] == tg.suffix[1][3])
+    || (tg.statetab.at(values)[0] == tg.suffix[1][4]));
+}
+
+TEST(test5, generate_from_table) {
+    TextGenerator tg = TextGenerator("test5.txt");
+    std::string text = "Раз, два, три, четыре, пять, Вышел зайчик погулять. Вдруг охотник выбегает, Прямо в зайчика стреляет. Но охотник не попал, Серый зайчик убежал.";
+    tg.slova.push_back(tg.get_list_of_strings(text));
+    for (int i = 0; i < tg.slova.size(); i++) {
+        tg.prefixes.push_back(tg.slova[i]);
+    }
+    tg.find_suffix();
+    tg.get_connected();
+    std::string result = tg.get_result(25);
+    int i = -1, index = 0;
+    while (result.find(' ', index) != -1) {
+        index = result.find(' ', index + 1);
+        i++;
+    }
+    ASSERT_LE(i, 25);
+}
