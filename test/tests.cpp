@@ -73,7 +73,7 @@ TEST(test5, generate_from_table) {
     for (int i = 0; i < tg.slova.size(); i++) {
         tg.prefixes.push_back(tg.slova[i]);
     }
-    // tg.find_suffix();
+    tg.find_suffix();
     // tg.get_connected();
     // std::string result = tg.get_result(25);
     // std::cout << result << std::endl;
