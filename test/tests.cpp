@@ -49,8 +49,8 @@ TEST(test4, some_suffixes) {
     TextGenerator tg = TextGenerator("test1_2.txt");
     typedef std::deque<std::string> prefix;
     prefix values;
-    std::string text = "Hello, my dear Nastya! Hello, my dear Irisha! Hello, \
-    my dear Dasha! Hello, my dear Alisa! Hello, my dear Nelly!";
+    std::string text = "Hello, my dear Nastya! Hello, my dear Irisha! Hello ";
+    text += "my dear Dasha! Hello, my dear Alisa! Hello, my dear Nelly!";
     tg.slova.push_back(tg.get_list_of_strings(text));
     for (int i = 0; i < tg.slova.size(); i++) {
         tg.prefixes.push_back(tg.slova[i]);
