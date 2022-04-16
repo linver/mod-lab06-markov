@@ -19,7 +19,7 @@ TextGenerator::TextGenerator(std::string file) {
 
 void TextGenerator::get_connected() {
     prefix pairs;
-    for (int i = 0; i < prefixes.size()-1; i++) {
+    for (int i = 0; i < prefixes.size()-2; i++) {
         pairs.push_back(prefixes[i]);
         pairs.push_back(prefixes[i+1]);
         statetab.insert(make_pair(pairs, suffix[i]));
