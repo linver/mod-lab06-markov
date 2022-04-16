@@ -65,7 +65,7 @@ TEST(test4, some_suffixes) {
 }
 
 TEST(test5, generate_from_table) {
-    TextGenerator tg = TextGenerator("test5.txt");
+    TextGenerator tg = TextGenerator("test3.txt");
     std::string text = "Раз, два, три, четыре, пять, Вышел зайчик погулять. ";
     text += "Вдруг охотник выбегает, Прямо в зайчика стреляет. ";
     text += "Но охотник не попал, Серый зайчик убежал.";
