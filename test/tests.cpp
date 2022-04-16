@@ -20,7 +20,6 @@ TEST(test2, prefix_suffix_1) {
     tg.get_words();
     tg.find_suffix();
     tg.get_connected();
-     tg.get_result(1000);
     typedef std::deque<std::string> prefix;
     prefix values;
     values.push_back(tg.prefixes[0]);
@@ -75,12 +74,12 @@ TEST(test5, generate_from_table) {
     }
     tg.find_suffix();
     tg.get_connected();
-    // std::string result = tg.get_result(25);
+    std::string result = tg.get_result(25);
     // std::cout << result << std::endl;
-    // int i = -1, index = 0;
-    // while (result.find(' ', index) != -1) {
-    //     index = result.find(' ', index + 1);
-    //     i++;
-    // }
-    ASSERT_LE(25, 25);
+    int i = -1, index = 0;
+    while (result.find(' ', index) != -1) {
+        index = result.find(' ', index + 1);
+        i++;
+    }
+    ASSERT_LE(i, 25);
 }
